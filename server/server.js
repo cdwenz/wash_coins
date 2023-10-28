@@ -2,13 +2,15 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const path = require("path");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const mercadopago = require("mercadopago");
 
 // REPLACE WITH YOUR ACCESS TOKEN AVAILABLE IN: https://developers.mercadopago.com/panel
+
 mercadopago.configure({
-  access_token:
-    "TEST-493073200065525-090710-807b33ee4fbe96af51b9294625625d41-52153870",
+  access_token: process.env.NODE_ENV_TOKEN,
 });
 
 app.use(express.urlencoded({ extended: false }));
@@ -63,6 +65,6 @@ app.get("/feedback", function (req, res) {
   });
 });
 
-app.listen(3001, () => {
-  console.log("The server is now running on Port 3001");
+app.listen(process.env.NODE_ENV_PORT, () => {
+  console.log(`The server is now running on Port ${process.env.NODE_ENV_PORT}`);
 });
