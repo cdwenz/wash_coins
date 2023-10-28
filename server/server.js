@@ -65,6 +65,6 @@ app.get("/feedback", function (req, res) {
   });
 });
 
-app.listen(process.env.NODE_ENV_PORT, () => {
-  console.log(`The server is now running on Port ${process.env.NODE_ENV_PORT}`);
+app.listen(process.env.PORT || 3001, () => {
+  console.log(`The server is now running on Port ${process.env.PORT}`);
 });
