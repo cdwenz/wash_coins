@@ -9,6 +9,7 @@ const mercadopago = require("mercadopago");
 
 // REPLACE WITH YOUR ACCESS TOKEN AVAILABLE IN: https://developers.mercadopago.com/panel
 
+console.log("PORT", process.env.PORT)
 mercadopago.configure({
   access_token: process.env.NODE_ENV_TOKEN,
 });
@@ -20,7 +21,20 @@ app.use(express.static(path.join(__dirname, "../client")));
 app.use(cors());
 
 app.get("/", function () {
-  path.resolve(__dirname, "..", "client", "index.html");
+  const htmlResponse = `
+  <html>
+    <head>
+      <title>
+        MI TITULO
+      </title>
+    </head>
+    <body>
+      <h1>MY ACHE1 </h1>
+    </body>
+  </html>`
+
+  res.send(htmlResponse)
+  // path.resolve(__dirname, "..", "client", "index.html");
 });
 
 app.post("/create_preference", (req, res) => {
