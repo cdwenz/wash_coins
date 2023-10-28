@@ -2,8 +2,8 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const path = require("path");
-const dotenv = require("dotenv");
-dotenv.config();
+// const dotenv = require("dotenv");
+// dotenv.config();
 
 const mercadopago = require("mercadopago");
 
@@ -11,7 +11,7 @@ const mercadopago = require("mercadopago");
 
 console.log("PORT", process.env.PORT)
 mercadopago.configure({
-  access_token: process.env.NODE_ENV_TOKEN,
+  access_token: "TEST-493073200065525-090710-807b33ee4fbe96af51b9294625625d41-52153870",
 });
 
 app.use(express.urlencoded({ extended: false }));
@@ -30,7 +30,7 @@ app.get("/", (req, res) => {
     </head>
     <body>
       <h1>MY ACHE1 </h1>
-      
+
     </body>
   </html>`
 
