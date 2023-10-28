@@ -70,3 +70,16 @@ input[type="number"] {
   margin-bottom: 10px;
   border: 1px solid black;
 }
+
+.checkbutton {
+  display: flex;
+  margin: auto;
+}
+
+.svelte-16x6ay9 > div {
+  display: none;
+}
+
+.svelte-16x6ay9 {
+  color: whitesmoke !important;
+}

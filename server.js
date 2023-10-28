@@ -9,9 +9,9 @@ const mercadopago = require("mercadopago");
 
 // REPLACE WITH YOUR ACCESS TOKEN AVAILABLE IN: https://developers.mercadopago.com/panel
 
-console.log("PORT", process.env.PORT)
+// console.log("TOKEN", process.env.NODE_ENV_TOKEN)
 mercadopago.configure({
-  access_token: "TEST-493073200065525-090710-807b33ee4fbe96af51b9294625625d41-52153870",
+  access_token: process.env.NODE_ENV_TOKEN,
 });
 
 app.use(express.urlencoded({ extended: false }));
@@ -21,20 +21,6 @@ app.use(express.static(path.join(__dirname, "./")));
 app.use(cors());
 
 app.get("/", (req, res) => {
-  // const htmlResponse = `
-  // <html>
-  //   <head>
-  //     <title>
-  //       MI TITULO
-  //     </title>
-  //   </head>
-  //   <body>
-  //     <h1>MY ACHE1 </h1>
-
-  //   </body>
-  // </html>`
-
-  // res.send(htmlResponse)
   path.resolve(__dirname, "index.html");
 });
 
@@ -50,8 +36,8 @@ app.post("/create_preference", (req, res) => {
         },
       ],
       back_urls: {
-        success: "http://localhost:3001",
-        failure: "http://localhost:3001",
+        success: process.env.NODE_ENV_URL,
+        failure: process.env.NODE_ENV_URL,
         pending: "",
       },
       auto_return: "approved",
