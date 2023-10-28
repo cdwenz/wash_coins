@@ -11,7 +11,7 @@ const mercadopago = require("mercadopago");
 
 // console.log("TOKEN", process.env.NODE_ENV_TOKEN)
 mercadopago.configure({
-  access_token: process.env.NODE_ENV_TOKEN,
+  access_token: process.env.TOKEN,
 });
 
 app.use(express.urlencoded({ extended: false }));
@@ -36,8 +36,8 @@ app.post("/create_preference", (req, res) => {
         },
       ],
       back_urls: {
-        success: process.env.NODE_ENV_URL,
-        failure: process.env.NODE_ENV_URL,
+        success: process.env.URL,
+        failure: process.env.URL,
         pending: "",
       },
       auto_return: "approved",
