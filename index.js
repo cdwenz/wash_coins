@@ -53,7 +53,7 @@ document.getElementById("checkout-btn").addEventListener("click", function () {
       price: totalAmount.innerText,
     };
 
-    fetch("http://localhost:3001/create_preference", {
+    fetch("/create_preference", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
