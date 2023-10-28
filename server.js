@@ -17,25 +17,25 @@ mercadopago.configure({
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// app.use(express.static(path.join(__dirname, "../client")));
+app.use(express.static(path.join(__dirname, "../client")));
 app.use(cors());
 
 app.get("/", (req, res) => {
-  const htmlResponse = `
-  <html>
-    <head>
-      <title>
-        MI TITULO
-      </title>
-    </head>
-    <body>
-      <h1>MY ACHE1 </h1>
+  // const htmlResponse = `
+  // <html>
+  //   <head>
+  //     <title>
+  //       MI TITULO
+  //     </title>
+  //   </head>
+  //   <body>
+  //     <h1>MY ACHE1 </h1>
 
-    </body>
-  </html>`
+  //   </body>
+  // </html>`
 
-  res.send(htmlResponse)
-  // path.resolve(__dirname, "..", "client", "index.html");
+  // res.send(htmlResponse)
+  path.resolve(__dirname, "..", "client", "index.html");
 });
 
 app.post("/create_preference", (req, res) => {

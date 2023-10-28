@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <title>Fichero</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1 id="product-description">Lanin CarWash</h1>
+      <p>Elija la cantidad de fichas que desea:</p>
+      <p><small>Precio de la ficha $400</small></p>
+
+      <div class="buttonsContainer">
+        <button id="donate-1">🪙x1 Ficha</button>
+        <button id="donate-2">🪙x2 Fichas</button>
+        <button id="donate-3">🪙x3 Fichas</button>
+      </div>
+
+      <p>O ingrese manualmente la cantidad deseada:</p>
+      <input type="number" id="amount-input" min="0" />
+      <p>Total: <span id="total-amount">0</span> $</p>
+
+      <button id="checkout-btn">PAGAR</button>
+
+      <div id="button-checkout"></div>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
