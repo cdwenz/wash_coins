@@ -17,7 +17,7 @@ mercadopago.configure({
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, "../client")));
+app.use(express.static(path.join(__dirname, "./")));
 app.use(cors());
 
 app.get("/", (req, res) => {
@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
   // </html>`
 
   // res.send(htmlResponse)
-  path.resolve(__dirname, "..", "client", "index.html");
+  path.resolve(__dirname, "index.html");
 });
 
 app.post("/create_preference", (req, res) => {
