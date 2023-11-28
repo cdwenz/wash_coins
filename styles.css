@@ -6,9 +6,8 @@
 }
 
 body {
-  background-color: #fff;
+  background-color: #333;
   display: flex;
-  
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -46,7 +45,7 @@ p {
 button {
   font-size: 1.2em;
   font-weight: 700;
-  background-color: #2d2d2d;
+  background-color: #555;
   color: #f5f5f5;
   border: none;
   border-radius: 5px;
@@ -69,17 +68,4 @@ input[type="number"] {
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid black;
-}
-
-.checkbutton {
-  display: flex;
-  margin: auto;
-}
-
-.svelte-16x6ay9 > div {
-  display: none;
-}
-
-.svelte-16x6ay9 {
-  color: whitesmoke !important;
 }

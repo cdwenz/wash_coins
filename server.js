@@ -2,8 +2,8 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const path = require("path");
-// const dotenv = require("dotenv");
-// dotenv.config();
+const dotenv = require("dotenv");
+dotenv.config();
 
 const mercadopago = require("mercadopago");
 
@@ -67,5 +67,5 @@ app.get("/feedback", function (req, res) {
 });
 
 app.listen(process.env.PORT || 3001, () => {
-  console.log(`The server is now running on Port ${process.env.PORT}`);
+  console.log(`The server is now running on Port ${process.env.PORT || 3001}`);
 });

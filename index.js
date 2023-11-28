@@ -1,8 +1,11 @@
 const productDescription = document.getElementById("product-description");
 
+const priceText = document.getElementById("price");
+
 const coin1Button = document.getElementById("donate-1");
 const coin2Button = document.getElementById("donate-2");
 const coin3Button = document.getElementById("donate-3");
+const coin4Button = document.getElementById("donate-4");
 
 const amountInput = document.getElementById("amount-input");
 const totalAmount = document.getElementById("total-amount");
@@ -24,6 +27,11 @@ coin2Button.addEventListener("click", () => {
 coin3Button.addEventListener("click", () => {
   amountInput.value = 3;
   coinCount = 3;
+  updateTotalAmount();
+});
+coin4Button.addEventListener("click", () => {
+  amountInput.value = 4;
+  coinCount = 4;
   updateTotalAmount();
 });
 
@@ -53,7 +61,7 @@ document.getElementById("checkout-btn").addEventListener("click", function () {
       price: totalAmount.innerText,
     };
 
-    fetch("/create_preference", {
+    fetch("http://localhost:3001/create_preference", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
