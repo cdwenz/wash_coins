@@ -36,8 +36,8 @@ app.post("/create_preference", (req, res) => {
         },
       ],
       back_urls: {
-        success: process.env.URL,
-        failure: process.env.URL,
+        success: process.env.NODE_ENV_URL,
+        failure: process.env.NODE_ENV_URL,
         pending: "",
       },
       auto_return: "approved",
