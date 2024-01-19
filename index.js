@@ -77,8 +77,8 @@ document.getElementById("checkout-btn").addEventListener("click", function () {
       .then(function (preference) {
         createCheckoutButton(preference.id);
       })
-      .catch(function () {
-        alert("Unexpected error");
+      .catch(function (error) {
+        alert("Unexpected error: ", error);
       });
   } else {
     console.log(totalAmount.innerText);
