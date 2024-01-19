@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
   path.resolve(__dirname, "index.html");
 });
 
-app.post("https://coins-5viw.onrender.com/create_preference", (req, res) => {
+app.post("/create_preference", (req, res) => {
   const { description, price, quantity } = req.body;
   if (Number(price) > 0){
     let preference = {

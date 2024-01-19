@@ -64,7 +64,7 @@ document.getElementById("checkout-btn").addEventListener("click", function () {
     };
 
     // fetch("http://localhost:3001/create_preference", {
-    fetch("/create_preference", {
+    fetch("https://washcoins-production.up.railway.app/create_preference", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
