@@ -63,7 +63,8 @@ document.getElementById("checkout-btn").addEventListener("click", function () {
       price: totalAmount.innerText,
     };
 
-    fetch("http://localhost:3001/create_preference", {
+    // fetch("http://localhost:3001/create_preference", {
+    fetch("https://wash-coins.vercel.app/create_preference", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
