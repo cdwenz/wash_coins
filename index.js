@@ -65,7 +65,7 @@ document.getElementById("checkout-btn").addEventListener("click", function () {
     };
 
     // fetch("http://localhost:3001/create_preference", {
-    fetch("washcoins-production.up.railway.app/create_preference", {
+    fetch("https://washcoins-production.up.railway.app/create_preference", {
     // fetch("https://coins-5viw.onrender.com/create_preference", {
       method: "POST",
       headers: {
