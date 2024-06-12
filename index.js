@@ -49,7 +49,8 @@ const updateTotalAmount = () => {
 
 //MP
 const mercadopago = new MercadoPago(
-  "TEST-72c67afe-b227-4782-9945-46a1aedfe2ea",
+  "APP_USR-601b5dc3-a6fb-418c-b803-d70eb462affa",
+  // "TEST-72c67afe-b227-4782-9945-46a1aedfe2ea",
   {
     locale: "es-AR", // The most common are: 'pt-BR', 'es-AR' and 'en-US'
   }
