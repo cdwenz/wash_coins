@@ -19,6 +19,11 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "./")));
 app.use(cors());
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://wash-coins.vercel.app");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.get("/", (req, res) => {
   path.resolve(__dirname, "index.html");
