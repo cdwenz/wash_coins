@@ -11,7 +11,7 @@ const mercadopago = require("mercadopago");
 
 // console.log("TOKEN", process.env.NODE_ENV_TOKEN)
 mercadopago.configure({
-  access_token: process.env.NODE_ENV_TOKEN2,
+  access_token: process.env.NODE_ENV_TOKEN,
 });
 
 app.use(express.urlencoded({ extended: false }));
