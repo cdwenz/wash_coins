@@ -11,7 +11,7 @@ const mercadopago = require("mercadopago");
 
 // console.log("TOKEN", process.env.NODE_ENV_TOKEN)
 mercadopago.configure({
-  access_token: process.env.NODE_ENV_TOKEN,
+  access_token: process.env.NODE_ENV_TOKEN2,
 });
 
 app.use(express.urlencoded({ extended: false }));
@@ -46,6 +46,7 @@ app.post("/create_preference", (req, res) => {
     mercadopago.preferences
       .create(preference)
       .then(function (response) {
+        console.log("Response: ", response)
         res.json({
           id: response.body.id,
         });
