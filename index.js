@@ -12,7 +12,7 @@ const totalAmount = document.getElementById("total-amount");
 
 let coinCount = 0;
 
-price.innerText = "$10"
+price.innerText = "$400"
 
 coin1Button.addEventListener("click", () => {
   amountInput.value = 1;
@@ -43,7 +43,7 @@ amountInput.addEventListener("input", () => {
 });
 
 const updateTotalAmount = () => {
-  const updatedAmount = coinCount * 10;
+  const updatedAmount = coinCount * 400;
   totalAmount.innerText = updatedAmount;
 };
 
