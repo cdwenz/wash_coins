@@ -108,6 +108,19 @@ function createCheckoutButton(preferenceId) {
         callbacks: {
           onError: (error) => console.error(error),
           onReady: () => {},
+          onPayment: (payment) => {
+            // Este callback se ejecuta una vez finalizado el pago
+            console.log(payment);
+
+            // Aquí puedes manejar la respuesta del pago
+            if (payment.status === 'approved') {
+              // Pago aprobado
+              console.log('Pago aprobado:', payment);
+            } else {
+              // Pago no aprobado
+              console.log('Pago no aprobado:', payment);
+            }
+          },
         },
       }
     );
