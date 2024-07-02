@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Fichero</title>
+  </head>
+  <body>
+    <div class="container">
+      <img
+        src="./lanincarwash_org-removebg-preview.png"
+        alt="LANIN CarWash"
+        style="max-width: 50%"
+      />
+      <h1 id="product-description" style="display: none">Lanin CarWash</h1>
+      <p>Elija la cantidad de fichas que desea:</p>
+      <p>
+        <small>Precio de la ficha $<i id="price"></i></small>
+      </p>
+
+      <div class="buttonsContainer">
+        <button id="donate-1">🪙x1 Crédito</button>
+        <button id="donate-2">🪙x2 Créditos</button>
+        <button id="donate-3">🪙x3 Créditos</button>
+        <button id="donate-4">🪙x4 Créditos</button>
+      </div>
+
+      <p>O ingrese manualmente la cantidad deseada:</p>
+      <input type="number" id="amount-input" min="0" />
+      <p>Total: <span id="total-amount">0</span> $</p>
+
+      <button id="checkout-btn">PAGAR</button>
+      
+      <div id="modal" class="modal">
+        <div class="modal-content">
+          <h2>MercadoPago</h2>
+          <p>Escanear con la app de MercadoPago.</p>
+          <div id="qrcode"></div>
+          <button id="confirm">FINALIZAR COMPRA</button>
+          <button id="cancel">Cancelar</button>
+        </div>
+      </div>
+
+      <div id="button-checkout"></div>
+    </div>
+    <script src="page2.js"></script>
+  </body>
+</html>

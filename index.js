@@ -1,130 +1,75 @@
-const productDescription = document.getElementById("product-description");
+const box1Button = document.getElementById("box1");
+const box2Button = document.getElementById("box2");
+const box3Button = document.getElementById("box3");
+const box4Button = document.getElementById("box4");
 
-const priceText = document.getElementById("price");
+const asp1Button = document.getElementById("asp1");
+const asp2Button = document.getElementById("asp2");
+const asp3Button = document.getElementById("asp3");
+const asp4Button = document.getElementById("asp4");
 
-const coin1Button = document.getElementById("donate-1");
-const coin2Button = document.getElementById("donate-2");
-const coin3Button = document.getElementById("donate-3");
-const coin4Button = document.getElementById("donate-4");
+localStorage.setItem("operation", JSON.stringify({value_coin: 0, id_valor: 0, machine_id: 0, coins: 0, total: 0, payment:"", status:"", MO:""}))
 
-const amountInput = document.getElementById("amount-input");
-const totalAmount = document.getElementById("total-amount");
-
-let coinCount = 0;
-
-price.innerText = "$10"
-
-coin1Button.addEventListener("click", () => {
-  amountInput.value = 1;
-  coinCount = 1;
-  updateTotalAmount();
+box1Button.addEventListener("click", () => {
+  let objetoRecuperado = JSON.parse(localStorage.getItem('operation'));
+  objetoRecuperado.machine_id = 5
+  localStorage.setItem('operation', JSON.stringify(objetoRecuperado));
+  window.location.href = '/page2.html'
+});
+box2Button.addEventListener("click", () => {
+  let objetoRecuperado = JSON.parse(localStorage.getItem('operation'));
+  objetoRecuperado.machine_id = 6
+  localStorage.setItem('operation', JSON.stringify(objetoRecuperado));
+  window.location.href = '/page2.html'
+});
+box3Button.addEventListener("click", () => {
+  let objetoRecuperado = JSON.parse(localStorage.getItem('operation'));
+  objetoRecuperado.machine_id = 7
+  localStorage.setItem('operation', JSON.stringify(objetoRecuperado));
+  window.location.href = '/page2.html'
+});
+box4Button.addEventListener("click", () => {
+  let objetoRecuperado = JSON.parse(localStorage.getItem('operation'));
+  objetoRecuperado.machine_id = 8
+  localStorage.setItem('operation', JSON.stringify(objetoRecuperado));
+  window.location.href = '/page2.html'
+});
+asp1Button.addEventListener("click", () => {
+  let objetoRecuperado = JSON.parse(localStorage.getItem('operation'));
+  objetoRecuperado.machine_id = 1
+  localStorage.setItem('operation', JSON.stringify(objetoRecuperado));
+  window.location.href = '/page2.html'
+});
+asp2Button.addEventListener("click", () => {
+  let objetoRecuperado = JSON.parse(localStorage.getItem('operation'));
+  objetoRecuperado.machine_id = 2
+  localStorage.setItem('operation', JSON.stringify(objetoRecuperado));
+  window.location.href = '/page2.html'
+});
+asp3Button.addEventListener("click", () => {
+  let objetoRecuperado = JSON.parse(localStorage.getItem('operation'));
+  objetoRecuperado.machine_id = 3
+  localStorage.setItem('operation', JSON.stringify(objetoRecuperado));
+  window.location.href = '/page2.html'
+});
+asp4Button.addEventListener("click", () => {
+  let objetoRecuperado = JSON.parse(localStorage.getItem('operation'));
+  objetoRecuperado.machine_id = 4
+  localStorage.setItem('operation', JSON.stringify(objetoRecuperado));
+  window.location.href = '/page2.html'
 });
 
-coin2Button.addEventListener("click", () => {
-  amountInput.value = 2;
-  coinCount = 2;
-  updateTotalAmount();
-});
 
-coin3Button.addEventListener("click", () => {
-  amountInput.value = 3;
-  coinCount = 3;
-  updateTotalAmount();
-});
-coin4Button.addEventListener("click", () => {
-  amountInput.value = 4;
-  coinCount = 4;
-  updateTotalAmount();
-});
+const value_coin = async () => {
+  const res =  await axios("/api/creditos");
+  console.log("first", res.data)
+  const value = res.data
 
-amountInput.addEventListener("input", () => {
-  coinCount = amountInput.value;
-  updateTotalAmount();
-});
-
-const updateTotalAmount = () => {
-  const updatedAmount = coinCount * 10;
-  totalAmount.innerText = updatedAmount;
+  let objetoRecuperado = JSON.parse(localStorage.getItem('operation'));
+  objetoRecuperado.value_coin = value.valor_credito;
+  objetoRecuperado.id_valor = value.id_valor;
+  localStorage.setItem('operation', JSON.stringify(objetoRecuperado));
+  return value
 };
 
-//MP
-const mercadopago = new MercadoPago(
-  "APP_USR-601b5dc3-a6fb-418c-b803-d70eb462affa",
-  // "TEST-72c67afe-b227-4782-9945-46a1aedfe2ea",
-  {
-    locale: "es-AR", // The most common are: 'pt-BR', 'es-AR' and 'en-US'
-  }
-);
-
-document.getElementById("checkout-btn").addEventListener("click", function () {
-  if (Number(totalAmount.innerText) > 0) {
-    const orderData = {
-      quantity: 1,
-      description: productDescription.innerText,
-      price: totalAmount.innerText,
-    };
-
-    // fetch("http://localhost:3001/create_preference", {
-    fetch("https://wash-coins.vercel.app/create_preference", {
-    // fetch("https://washcoins-production.up.railway.app/create_preference", {
-    // fetch("https://coins-5viw.onrender.com/create_preference", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(orderData),
-    })
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (preference) {
-        createCheckoutButton(preference.id);
-      })
-      .then(function (response) {
-        console.log("RES: ", response)
-      })
-      .catch(function (error) {
-        alert("Unexpected error: ", error);
-      });
-  } else {
-    console.log(totalAmount.innerText);
-    return alert("Monto inválido");
-  }
-});
-
-function createCheckoutButton(preferenceId) {
-  // Initialize the checkout
-  const bricksBuilder = mercadopago.bricks();
-
-  const renderComponent = async (bricksBuilder) => {
-    if (window.checkoutButton) window.checkoutButton.unmount();
-
-    await bricksBuilder.create(
-      "wallet",
-      "button-checkout", // class/id where the payment button will be displayed
-      {
-        initialization: {
-          preferenceId: preferenceId,
-        },
-        callbacks: {
-          onError: (error) => console.error(error),
-          onReady: () => {},
-          onPayment: (payment) => {
-            // Este callback se ejecuta una vez finalizado el pago
-            console.log(payment);
-
-            // Aquí puedes manejar la respuesta del pago
-            if (payment.status === 'approved') {
-              // Pago aprobado
-              console.log('Pago aprobado:', payment);
-            } else {
-              // Pago no aprobado
-              console.log('Pago no aprobado:', payment);
-            }
-          },
-        },
-      }
-    );
-  };
-  window.checkoutButton = renderComponent(bricksBuilder);
-}
+value_coin();

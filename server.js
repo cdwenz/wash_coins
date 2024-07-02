@@ -1,17 +1,28 @@
 const express = require("express");
 const app = express();
+const axios = require("axios");
+const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
+const mysql = require("mysql2");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const mercadopago = require("mercadopago");
+const enableChunk = process.env.NODE_ENV_NAME;
 
-// REPLACE WITH YOUR ACCESS TOKEN AVAILABLE IN: https://developers.mercadopago.com/panel
+const connection = mysql.createConnection({
+  host: process.env.NODE_ENV_DB_HOST,
+  user: process.env.NODE_ENV_DB_USER,
+  password: process.env.NODE_ENV_DB_PASSWORD,
+  database: process.env.NODE_ENV_DB_DATABASE,
+});
 
-// console.log("TOKEN", process.env.NODE_ENV_TOKEN)
-mercadopago.configure({
-  access_token: process.env.NODE_ENV_TOKEN,
+connection.connect((err) => {
+  if (err) {
+    console.error("Error connecting to the database:", err);
+    return;
+  }
+  console.log("Connected to the MySQL database.");
 });
 
 app.use(express.urlencoded({ extended: false }));
@@ -20,8 +31,11 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "./")));
 app.use(cors());
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://wash-coins.vercel.app");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
   next();
 });
 
@@ -29,47 +43,65 @@ app.get("/", (req, res) => {
   path.resolve(__dirname, "index.html");
 });
 
-app.post("/create_preference", (req, res) => {
-  const { description, price, quantity } = req.body;
-  if (Number(price) > 0){
-    let preference = {
-      items: [
-        {
-          title: description,
-          unit_price: Number(price),
-          quantity: Number(quantity),
-        },
-      ],
-      back_urls: {
-        success: `${process.env.NODE_ENV_URL}/feedback`,
-        failure: `${process.env.NODE_ENV_URL}/feedback`,
-        pending: "",
-      },
-      auto_return: "approved",
-    };
+app.get("/api/creditos", async (req, res) => {
+  const query = "SELECT * FROM tbl_creditos";
   
-    mercadopago.preferences
-      .create(preference)
-      .then(function (response) {
-        console.log("Response: ", response)
-        res.json({
-          id: response.body.id,
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }else {
-    console.log({ error: "El monto ingresado es inválido" });
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error("Error fetching data:", err);
+      res.status(500).send("Error fetching data");
+      return;
+    }
+
+    const value_coin = results[results.length - 1]
+    
+    res.json(value_coin);
+  });
+});
+
+app.get("/get_order", async (req, res) => {
+  const { reference } = req.query;
+  try {
+    // const response = await axios(
+    //   `http://localhost:3000/get_order?external_reference=${reference}`
+    // );
+    const response = await axios(`${process.env.NODE_ENV_URL}/get_order?external_reference=${reference}`);
+    res.json(response.data);
+  } catch (error) {
+    console.log("ERROR: ", error);
   }
 });
 
-app.get("/feedback", function (req, res) {
-  res.json({
-    Payment: req.query.payment_id,
-    Status: req.query.status,
-    MerchantOrder: req.query.merchant_order_id,
-  });
+app.post("/create_order", async (req, res) => {
+  try {
+    const response = await axios.post(
+      `${process.env.NODE_ENV_URL}/create_order`,
+      req.body
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error creating order");
+  }
+});
+
+app.post("/api/sales", async (req, res) => {
+  const { coins, machine_id, id_valor } = req.body;
+  const query =
+    "INSERT INTO `prueba` (`usu_id`, `id_cliente`, `id_tipo_pago`, `estado_venta`, `creditos`, `id_maquina`, `estado_maquina`, `creditosusados`, `id_valor`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+  connection.query(
+    query,
+    [99, 1, 6, 'ACTIVA', coins, machine_id, 'OFF', 0, id_valor],
+    (err, results) => {
+      if (err) {
+        console.error("Error fetching data:", err);
+        res.status(500).send("Error fetching data");
+        return;
+      }
+      console.log("RESULT: ", results)
+      res.json(results);
+    }
+  );
 });
 
 app.listen(process.env.PORT || 3001, () => {
